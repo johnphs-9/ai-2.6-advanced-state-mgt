@@ -1,6 +1,6 @@
 # Pre-Reading: Lesson 2.6, Advanced State Management — Context API and Reducers
 
-Timebox **2–3 hours** across these resources before the lesson. You do not need to memorise everything; focus on building a mental model so the hands-on lab clicks faster.
+Timebox **2–3 hours** across these resources before the lesson. You do not need to memorise everything; focus on building a mental model so the hands-on lab clicks faster. Section 4 is optional and only needed if you want a head start on the assignment.
 
 ---
 
@@ -41,7 +41,9 @@ Timebox **2–3 hours** across these resources before the lesson. You do not nee
 
 ---
 
-## 4. Browser Storage
+## 4. Browser Storage (Optional, Assignment Prep)
+
+The lab itself does not use browser storage. This section is optional pre-reading for the assignment, where you will persist the logged-in user across page reloads.
 
 **Read (10 min)**
 
@@ -66,8 +68,8 @@ Timebox **2–3 hours** across these resources before the lesson. You do not nee
 
 Before the lesson, write down answers to these three questions:
 
-1. What is the difference between `localStorage` and `sessionStorage`? Give a scenario where you would choose each.
-2. Why must a reducer never mutate its state argument directly?
+1. Why must a reducer never mutate its state argument directly?
+2. What is the difference between a plain `useReducer` call in one component and a `useReducer` call combined with context?
 3. What is one thing you are still unclear about after the pre-reading?
 
 Bring question 3 to class.
