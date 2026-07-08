@@ -5,7 +5,6 @@
 - **Lesson:** Advanced State Management — Context API and Reducers / 2.6
 - **Type:** Optional Take-Home Assignment
 - **Estimated Time:** 2–3 hours
-- **Due:** Before next lesson
 - **Submission:** GitHub repository link or ZIP file
 
 ## Learning Objectives Covered
