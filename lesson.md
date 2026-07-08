@@ -485,6 +485,7 @@ function App() {
 Now rewrite the handlers to use `dispatch` for the coupled operations:
 
 ```jsx
+// src/App.jsx
   useEffect(() => {
     const loadCustomers = async () => {
       dispatch({ type: 'FETCH_START' });
@@ -1142,6 +1143,7 @@ function CustomerDetail({ selectedId }) {
 `CustomerEditForm` is the component that actually needs `updateCustomer`, so that is where it gets read from context:
 
 ```jsx
+// src/components/CustomerDetail.jsx
 function CustomerEditForm({ customer, onDone }) {
   const { updateCustomer } = useContext(CustomerContext);
   // ...
@@ -1162,6 +1164,7 @@ function CustomerEditForm({ customer, onDone }) {
 And update the call site inside `CustomerDetail`. Remove `onUpdate` from the props passed to `CustomerEditForm`:
 
 ```jsx
+// src/components/CustomerDetail.jsx
 {
   isEditing ? (
     <CustomerEditForm customer={customer} onDone={handleDone} />
@@ -1205,6 +1208,7 @@ The header currently shows the logged-in user's name. Make the role visually dis
 In `Header.jsx`, add the badge after the user name:
 
 ```jsx
+// src/components/Header.jsx
 <div className={styles.userArea}>
   <span className={styles.userName}>{user.name}</span>
   <span
@@ -1224,6 +1228,44 @@ The `.roleBadge`, `.roleBadgeAdmin`, and `.roleBadgeUser` rules are already in [
 
 ---
 
+## Optional Reading: Gating the Fetch on Login
+
+This section is not covered live in this lesson due to time constraints. It is included for reference; read it on your own, no code changes are required to complete this lesson.
+
+`CustomerProvider` mounts above the `if (!user) return <LoginPage />` check in `App.jsx`, and its fetch effect never reads `AuthContext`. That means the `/customers` request fires the moment the app loads, regardless of whether anyone has logged in yet. Recall from earlier in this lesson: `AuthProvider` wraps `CustomerProvider` because the ordering matters, a provider can only read from contexts above it in the tree. That ordering was set up specifically so `CustomerProvider` could read `AuthContext` if it ever needed to. Gating the fetch on `user` is the direct payoff of that setup:
+
+```jsx
+// src/contexts/CustomerContext.jsx
+import { AuthContext } from "./AuthContext";
+
+export function CustomerProvider({ children }) {
+  const { user } = useContext(AuthContext);
+  // ...
+
+  useEffect(() => {
+    if (!user) return;
+
+    const loadCustomers = async () => {
+      dispatch({ type: "FETCH_START" });
+      try {
+        const response = await fetch(`${API_BASE}/customers`);
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        const data = await response.json();
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_ERROR", payload: err.message });
+      }
+    };
+    loadCustomers();
+  }, [user]);
+  // ...
+}
+```
+
+This client-side gate is not the security control. A properly secured API rejects the unauthenticated request regardless, so `loadCustomers` would fail either way and no customer data would ever reach the browser. What the gate buys is cleanliness: without it, every unauthenticated page load fires a request that the server predictably rejects, logging an unnecessary 401 error to the console and doing pointless work on both ends. Gating the fetch on `user` avoids that noise; it does not replace the server-side check.
+
+---
+
 ## Bonus Challenges
 
 ### Challenge 1: Context Helper with Error Guard
@@ -1231,6 +1273,7 @@ The `.roleBadge`, `.roleBadgeAdmin`, and `.roleBadgeUser` rules are already in [
 A common pattern is to wrap `useContext` in a function that throws a clear error if called outside its provider, rather than returning `undefined` silently. Add the following to `CustomerContext.jsx`:
 
 ```js
+// src/contexts/CustomerContext.jsx
 export function useCustomers() {
   const ctx = useContext(CustomerContext);
   if (!ctx) {
