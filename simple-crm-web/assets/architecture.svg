@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="830" viewBox="0 0 1200 830"
+     font-family="ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Simple CRM — Technical Architecture</title>
+  <desc>React 19 SPA client (component tree, useState state, fetch service) communicating over HTTP/JSON with a json-server REST API persisted to data/db.json.</desc>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="ahs" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="830" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="60" y="50" font-size="26" font-weight="700" fill="#0f172a">Simple CRM — Technical Architecture</text>
+  <text x="60" y="76" font-size="13.5" fill="#64748b">AI Engineering · ai-2.6 Advanced State Management · React 19 + Vite 8 + json-server</text>
+
+  <!-- ================= Client band ================= -->
+  <rect x="40" y="100" width="1100" height="340" rx="14" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="64" y="128" font-size="11" font-weight="700" letter-spacing="2" fill="#2563eb">BROWSER — CLIENT</text>
+
+  <!-- Presentation column -->
+  <text x="105" y="188" font-size="12.5" font-weight="700" fill="#0f172a">Presentation — components</text>
+  <rect x="105" y="198" width="250" height="170" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="120" y="224" font-size="11.5" fill="#334155">App — layout shell</text>
+  <text x="120" y="250" font-size="11.5" fill="#334155">SearchBar (controlled input)</text>
+  <text x="120" y="276" font-size="11.5" fill="#334155">CustomerCard ×N — list</text>
+  <text x="120" y="302" font-size="11.5" fill="#334155">CustomerDetail — view / edit</text>
+  <text x="120" y="328" font-size="11.5" fill="#334155">Spinner — loading</text>
+  <text x="120" y="356" font-size="11" fill="#64748b">CSS Modules · lucide-react icons</text>
+
+  <!-- State column -->
+  <text x="465" y="188" font-size="12.5" font-weight="700" fill="#0f172a">State — useState hooks</text>
+  <rect x="465" y="198" width="250" height="48" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="480" y="218" font-size="12" font-weight="700" fill="#0f172a">Server-synced</text>
+  <text x="480" y="236" font-size="11.5" fill="#334155">customers · loading · error</text>
+  <rect x="465" y="254" width="250" height="56" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="480" y="272" font-size="12" font-weight="700" fill="#0f172a">UI</text>
+  <text x="480" y="290" font-size="11.5" fill="#334155">searchTerm · statusFilter · selectedId</text>
+  <text x="480" y="306" font-size="11.5" fill="#334155">showForm · form · submitting</text>
+  <rect x="465" y="318" width="250" height="58" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="480" y="336" font-size="12" font-weight="700" fill="#0f172a">Derived</text>
+  <text x="480" y="354" font-size="11.5" fill="#334155">filteredCustomers = customers</text>
+  <text x="480" y="370" font-size="11.5" fill="#334155">filtered by status + search</text>
+
+  <!-- Service column -->
+  <text x="825" y="188" font-size="12.5" font-weight="700" fill="#0f172a">Service — fetch client</text>
+  <rect x="825" y="198" width="250" height="170" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="840" y="224" font-size="11" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">GET    /customers</text>
+  <text x="840" y="248" font-size="11" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">GET    /customers/:id</text>
+  <text x="840" y="272" font-size="11" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">POST   /customers</text>
+  <text x="840" y="296" font-size="11" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">PATCH  /customers/:id</text>
+  <text x="840" y="320" font-size="11" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">DELETE /customers/:id</text>
+  <text x="840" y="344" font-size="11" fill="#64748b">API_BASE = http://localhost:3001</text>
+  <text x="840" y="362" font-size="11" fill="#64748b">optimistic delete · merge responses</text>
+
+  <!-- Intra-client arrows -->
+  <line x1="355" y1="285" x2="465" y2="285" stroke="#64748b" stroke-width="1.5" marker-start="url(#ahs)" marker-end="url(#ah)"/>
+  <text x="410" y="276" font-size="10.5" fill="#64748b" text-anchor="middle">props / events</text>
+  <line x1="715" y1="285" x2="825" y2="285" stroke="#64748b" stroke-width="1.5" marker-start="url(#ahs)" marker-end="url(#ah)"/>
+  <text x="770" y="276" font-size="10.5" fill="#64748b" text-anchor="middle">fetch / setState</text>
+
+  <!-- Network arrows -->
+  <line x1="930" y1="440" x2="930" y2="529" stroke="#64748b" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="918" y="489" font-size="11" fill="#64748b" text-anchor="end">REST requests</text>
+  <line x1="990" y1="529" x2="990" y2="441" stroke="#64748b" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="1002" y="489" font-size="11" fill="#64748b">JSON responses</text>
+  <text x="600" y="489" font-size="11.5" fill="#64748b" text-anchor="middle">HTTP/JSON · localhost:3001</text>
+
+  <!-- ================= Server band ================= -->
+  <rect x="40" y="505" width="1100" height="135" rx="14" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="64" y="527" font-size="11" font-weight="700" letter-spacing="2" fill="#16a34a">SERVER</text>
+  <rect x="200" y="530" width="800" height="86" rx="10" fill="#ffffff" stroke="#86efac"/>
+  <text x="220" y="556" font-size="14" font-weight="700" fill="#0f172a">json-server — REST API (Node.js)</text>
+  <text x="220" y="578" font-size="11.5" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">GET /customers · GET /customers/:id · POST /customers · PATCH /customers/:id · DELETE /customers/:id</text>
+  <text x="220" y="600" font-size="11.5" fill="#64748b">in-memory store · --watch persists every write to file</text>
+
+  <!-- Server ↔ persistence -->
+  <line x1="600" y1="640" x2="600" y2="683" stroke="#64748b" stroke-width="1.5" marker-start="url(#ahs)" marker-end="url(#ah)"/>
+  <text x="616" y="667" font-size="11" fill="#64748b">read / write</text>
+
+  <!-- Persistence -->
+  <rect x="420" y="685" width="360" height="74" rx="10" fill="#fafaf9" stroke="#d6d3d1"/>
+  <text x="600" y="716" font-size="14" font-weight="700" fill="#44403c" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">data/db.json</text>
+  <text x="600" y="740" font-size="11.5" fill="#78716c" text-anchor="middle">JSON file — source of truth (persisted via --watch)</text>
+
+  <!-- Footer -->
+  <text x="600" y="802" font-size="12" fill="#64748b" text-anchor="middle">Unidirectional data flow: user action → state update → re-render · server response → state</text>
+</svg>
